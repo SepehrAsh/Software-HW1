@@ -7,6 +7,7 @@
     function sendNums() {
         var num_one = document.getElementById("num1");
         var num_two = document.getElementById("num2");
+        var num_three = 3 * 8
         var result = document.getElementById("res");
         var radiob = document.getElementById("radiobtn1");
 
@@ -14,7 +15,7 @@
 
         if (radiob.checked) {    // ----------------- node version of sha operation ---------------------
             const data = { "1": Number(num_one.value, 10), "2": Number(num_two.value, 10) };
-            fetch('http://192.168.1.60/nodejs/sha256', {
+            fetch('http://www.sharif.edu', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,60 +67,26 @@
         var result2 = document.getElementById("res2");
 
         // ---------------------- NODE version of nthLine operation --------------------------
-        
+        if (radiob2.checked) {
+            fetch('http://192.168.1.60/nodejs/write/?' + 'line=' + num_line.value, { method: 'GET' })
+                .then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            console.log('Looks like there was a problem. Status Code: ' + response.status);
+                            return;
+                        }
+                        response.text().then(txt =>
+                            result2.innerHTML = txt);
+                    }
+                )
+                .catch(function (err) {
+                    console.log('Fetch Error :-S', err);
+                });
+        }
     }
 
 </script>
 
-<body>
 
-
-    <div class="container">
-        <div class="text-center">
-            <h2>SHA Calculator</h2>
-            <p>Fill the forms with two integer number</p>
-            <form>
-                <div class="form-group">
-                    <label for="usr">First number</label>
-                    <input type="number" class="form-control" id="num1">
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Second number</label>
-                    <input type="number" class="form-control" id="num2">
-                </div>
-                <div class="radio">
-                    <label><input type="radio" name="optradio">golang</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" name="optradio" checked id="radiobtn1">node js</label>
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-default btn-lg" onclick="sendNums()">Send!</button>
-                </div>
-                <label for="usr" id="res">Result!</label>
-            </form>
-            <hr>
-            <form>
-                <div class="form-group">
-                    <h3>Enter a number between 0 and 100</h3>
-                    <input type="number" class="form-control" id="linee">
-                </div>
-                <div class="radio">
-                    <label><input type="radio" name="optradio">golang</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" name="optradio" checked id="radiobtn2">node js</label>
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-default btn-lg" onclick="sendLine()">Send!</button>
-                </div>
-                <label for="usr" id="res2">Result!</label>
-            </form>
-            <hr>
-        </div>
-    </div>
-
-
-</body>
 
 </html>
