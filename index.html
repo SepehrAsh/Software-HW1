@@ -82,6 +82,21 @@
                 .catch(function (err) {
                     console.log('Fetch Error :-S', err);
                 });
+        } else {
+            fetch('http://192.168.1.60/go/write/?' + 'line=' + num_line.value, { method: 'GET' })
+                .then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            console.log('Looks like there was a problem. Status Code: ' + response.status);
+                            return;
+                        }
+                        response.text().then(txt =>
+                            result2.innerHTML = txt);
+                    }
+                )
+                .catch(function (err) {
+                    console.log('Fetch Error :-S', err);
+                });
         }
     }
 
