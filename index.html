@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
 
 <script>
 
     function sendNums() {
         var num_one = document.getElementById("num1");
         var num_two = document.getElementById("num2");
-        var num_three = 3 * 8
         var result = document.getElementById("res");
         var radiob = document.getElementById("radiobtn1");
 
@@ -15,7 +22,7 @@
 
         if (radiob.checked) {    // ----------------- node version of sha operation ---------------------
             const data = { "1": Number(num_one.value, 10), "2": Number(num_two.value, 10) };
-            fetch('http://www.sharif.edu', {
+            fetch('http://192.168.1.60/nodejs/sha256', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,7 +89,7 @@
                 .catch(function (err) {
                     console.log('Fetch Error :-S', err);
                 });
-        } else {
+        } else{
             fetch('http://192.168.1.60/go/write/?' + 'line=' + num_line.value, { method: 'GET' })
                 .then(
                     function (response) {
@@ -101,6 +108,7 @@
     }
 
 </script>
+
 <body>
 
 
@@ -128,18 +136,28 @@
                 </div>
                 <label for="usr" id="res">Result!</label>
             </form>
-            <div class="form-group">
-                <h3>Enter a number between Zero & Hundred</h3>
-                <input type="number" class="form-control" id="linee">
-            </div>
-            <label for="usr" id="res2">Result!</label>
-        </form>
-        <hr>
+            <hr>
+            <form>
+                <div class="form-group">
+                    <h3>Enter a number between 0 and 100</h3>
+                    <input type="number" class="form-control" id="linee">
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="optradio">golang</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="optradio" checked id="radiobtn2">node js</label>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-default btn-lg" onclick="sendLine()">Send!</button>
+                </div>
+                <label for="usr" id="res2">Result!</label>
+            </form>
+            <hr>
         </div>
     </div>
 
 
 </body>
-
 
 </html>
